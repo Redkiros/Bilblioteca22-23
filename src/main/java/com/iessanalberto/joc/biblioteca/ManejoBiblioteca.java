@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 // clase para la gestion de la creación y datos de la biblioteca
 public class ManejoBiblioteca {
@@ -15,7 +16,7 @@ public class ManejoBiblioteca {
     static ArrayList<Socio> socios = new ArrayList<>();
     static ArrayList<Prestamo> prestamos = new ArrayList<>();
 
-    public static void crearLibros(){
+    public static void crearLibros() {
         // libros
         libros.add(new Libro(1, "El Perfume", "Patrick Suskind", "Edelvives", 1985, "ISBN1", 10, 180));
         libros.add(new Libro(2, "El medico", "Noah Gordon", "Planeta", 1986, "ISBN2", 20, 450));
@@ -24,7 +25,8 @@ public class ManejoBiblioteca {
         libros.add(new Libro(5, "Momo", "Michael Ende", "Sintesis", 1973, "ISBN5", 50, 350));
 
     }
-    public static void crearSocios(){
+
+    public static void crearSocios() {
         // socios
         Date bornDate1 = new Date(978307200000L); //01/01/2001
         Date bornDate2 = new Date(315532800000L); //01/01/1980
@@ -38,7 +40,8 @@ public class ManejoBiblioteca {
         socios.add(new Socio(5, "Jose", "Otin", Date.valueOf(bornDate5.toLocalDate()), "Badaguas", "666666"));
 
     }
-    public static void crearPrestamos(){
+
+    public static void crearPrestamos() {
         // prestamos
         Date initDate1 = new Date(1633132800000L);
         Date initDate2 = new Date(initDate1.getTime() + (1000 * 60 * 60 * 24 * 2)); //2 days later
@@ -110,6 +113,47 @@ public class ManejoBiblioteca {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static void insertarLibro() {
+        Connection miCon = Conexion.conectar2();
+        PreparedStatement consulta;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el codigo del libro");
+        int codigo = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Introduce el titulo del libro");
+        String titulo = sc.nextLine();
+        System.out.println("Introduce el autor del libro");
+        String autor = sc.nextLine();
+        System.out.println("Introduce la editorial del libro");
+        String editorial = sc.nextLine();
+        System.out.println("Introduce el año del libro");
+        int ano = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Introduce el isbn del libro");
+        String isbn = sc.nextLine();
+        System.out.println("Introduce el numero de ejemplares del libro");
+        int numeroEjemplares = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Introduce el numero de paginas del libro");
+        int numeroPaginas = sc.nextInt();
+        sc.nextLine();
+
+        try {
+            consulta = miCon.prepareStatement("INSERT INTO libro (codigo, titulo, autor, editorial, ano, isbn, numeroEjemplares, numeroPaginas) VALUES (?,?,?,?,?,?,?,?)");
+            consulta.setInt(1, codigo);
+            consulta.setString(2, titulo);
+            consulta.setString(3, autor);
+            consulta.setString(4, editorial);
+            consulta.setInt(5, ano);
+            consulta.setString(6, isbn);
+            consulta.setInt(7, numeroEjemplares);
+            consulta.setInt(8, numeroPaginas);
+            consulta.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

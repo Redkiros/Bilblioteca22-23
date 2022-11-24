@@ -20,10 +20,11 @@ public class Menu {
             System.out.println("-------------------OPCIONES DE BASE DE DATOS-------------------");
             System.out.println("4. Crear base de datos biblioteca");
             System.out.println("5. Crear Tablas");
-            System.out.println("6. Insertar Libros");
-            System.out.println("7. Insertar Socios");
-            System.out.println("8. Insertar Prestamos");
-            System.out.println("10. Borrar Base de Datos");
+            System.out.println("6. Insertar Libros por teclado");
+            System.out.println("7. Insertar Libros");
+            System.out.println("8. Insertar Socios");
+            System.out.println("9. Insertar Prestamos");
+            System.out.println("11. Borrar Base de Datos");
 
 
             opcion = sc.nextInt();
@@ -48,18 +49,21 @@ public class Menu {
                     ManejoBiblioteca.crearTablas();
                     break;
                 case 6:
+                    //ManejoBiblioteca.crearLibros();
+                    ManejoBiblioteca.insertarLibro();
+                case 7:
                     ManejoBiblioteca.crearLibros();
                     ManejoBiblioteca.insertarLibros();
                     break;
-                case 7:
+                case 8:
                     ManejoBiblioteca.crearSocios();
                     ManejoBiblioteca.insertarSocios();
                     break;
-                case 8:
+                case 9:
                     ManejoBiblioteca.crearPrestamos();
                     ManejoBiblioteca.insertarPrestamos();
                     break;
-                case 9:
+                case 10:
                     ManejoBiblioteca.borraBiblioteca();
                     break;
             }
